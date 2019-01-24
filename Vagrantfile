@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "centos/7"
   config.vm.hostname = "puppetserver"
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -65,12 +65,12 @@ Vagrant.configure("2") do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
-    apt update
-    apt -y autoremove
-    wget https://apt.puppetlabs.com/puppetlabs-release-trusty.deb -O /tmp/puppetlabs-release-trusty.deb
-    dpkg -i /tmp/puppetlabs-release-trusty.deb 
-    apt update
-    apt -y install puppetserver
-    /etc/init.d/puppetserver start
+    setenforce 0
+    yum -y install wget net-tools git
+    wget https://yum.puppetlabs.com/puppet6/puppet6-release-el-7.noarch.rpm -O /tmp/puppet6-release-el-7.noarch.rpm
+    rpm -i /tmp/puppet6-release-el-7.noarch.rpm
+    yum -y install puppetserver
+    systemctl start puppetserver
+    systemctl enable puppetserver
   SHELL
 end

@@ -1,6 +1,6 @@
 # Vagrant Puppet
 
-Vagrant file to quickly install puppet on Ubuntu for Testing
+Vagrant file to quickly install puppet on CentOS 7 for Testing
 
 ## Usage
 
